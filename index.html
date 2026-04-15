@@ -1,17 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>naked-ui dev</title>
+    <title>velair-ui dev</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        padding: 1.5rem;
+        max-width: 40rem;
+      }
+      section {
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 0.875rem;
+        margin: 0 0 0.5rem;
+        color: #52525b;
+      }
+    </style>
   </head>
   <body>
-    <p style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center">
-      <nk-button>Primary</nk-button>
-      <nk-button variant="secondary">Secondary</nk-button>
-      <nk-button variant="ghost">Ghost</nk-button>
-      <nk-button disabled>Disabled</nk-button>
-    </p>
+    <h1>velair-ui</h1>
+
+    <section>
+      <h2>vl-button</h2>
+      <p style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center">
+        <vl-button>Primary</vl-button>
+        <vl-button variant="secondary">Secondary</vl-button>
+        <vl-button disabled>Disabled</vl-button>
+        <vl-button href="#">Как ссылка</vl-button>
+      </p>
+    </section>
+
+    <section>
+      <h2>vl-input</h2>
+      <vl-input placeholder="Текст" wide></vl-input>
+    </section>
+
+    <section>
+      <h2>vl-select</h2>
+      <vl-select
+        wide
+        options='[{"value":"a","label":"Вариант A"},{"value":"b","label":"Вариант B"}]'
+        value="a"
+      ></vl-select>
+    </section>
+
+    <section>
+      <h2>vl-toggle-switch</h2>
+      <vl-toggle-switch id="sw"></vl-toggle-switch>
+    </section>
+
+    <section>
+      <h2>vl-modal</h2>
+      <vl-button type="button" id="openModal">Открыть модалку</vl-button>
+      <vl-modal id="demoModal">
+        <span slot="title">Заголовок</span>
+        <p>Содержимое диалога.</p>
+        <span slot="footer"><vl-button type="button" id="closeModal">Закрыть</vl-button></span>
+      </vl-modal>
+    </section>
+
     <script type="module" src="/dev/main.ts"></script>
   </body>
 </html>

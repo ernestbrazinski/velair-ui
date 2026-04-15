@@ -1,7 +1,7 @@
 {
-  "name": "naked-ui",
+  "name": "velair-ui",
   "version": "0.1.0",
-  "description": "Web components UI library built with Lit",
+  "description": "Velair UI — Web components library built with Lit",
   "license": "MIT",
   "author": "",
   "type": "module",

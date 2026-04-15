@@ -1,11 +1,11 @@
-# naked-ui
+# velair-ui
 
 UI-библиотека на [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) с [Lit](https://lit.dev/).
 
 ## Установка
 
 ```bash
-npm install naked-ui lit
+npm install velair-ui lit
 ```
 
 `lit` указан как peer-зависимость: установите совместимую версию **^3** в приложении.
@@ -15,21 +15,39 @@ npm install naked-ui lit
 Импорт регистрирует кастомные элементы (через `@customElement`):
 
 ```ts
-import 'naked-ui';
+import 'velair-ui';
 ```
 
-Дальше используйте теги в HTML:
+Дальше используйте теги в HTML (префикс `vl-`, перенесено из `motoservice_nuxt` `_ui`):
 
 ```html
-<nk-button>OK</nk-button>
-<nk-button variant="secondary">Отмена</nk-button>
-<nk-button variant="ghost" type="button">Ещё</nk-button>
+<vl-button>OK</vl-button>
+<vl-button variant="secondary">Отмена</vl-button>
+<vl-button href="/path">Как ссылка</vl-button>
+
+<vl-input placeholder="Имя" wide></vl-input>
+
+<vl-select
+  options='[{"value":"a","label":"A"},{"value":"b","label":"B"}]'
+  value="a"
+  wide
+></vl-select>
+
+<vl-toggle-switch></vl-toggle-switch>
+
+<vl-modal>
+  <span slot="title">Заголовок</span>
+  <p>Тело</p>
+  <span slot="footer"><vl-button type="button">Закрыть</vl-button></span>
+</vl-modal>
 ```
 
-Или импортируйте класс для типов и расширения:
+События с `composed: true`: `vl-input` / `vl-change` у полей, `vl-change` у переключателя (`detail.checked`), `vl-close` у модалки после закрытия. У `vl-modal` есть метод `close()` и свойство `open`.
+
+Или импортируйте классы для типов и расширения:
 
 ```ts
-import { NkButton } from 'naked-ui';
+import { VlButton, VlInput, VlModal, VlSelect, VlToggleSwitch } from 'velair-ui';
 ```
 
 ## Разработка
@@ -47,7 +65,7 @@ npm run build
 
 ## Публикация в npm
 
-1. Убедитесь, что имя `naked-ui` свободно на [npmjs.com](https://www.npmjs.com/), либо смените `name` в `package.json` (например на scoped `@your-scope/naked-ui`).
+1. Убедитесь, что имя `velair-ui` свободно на [npmjs.com](https://www.npmjs.com/package/velair-ui), либо смените `name` в `package.json` (например на scoped `@your-scope/velair-ui`).
 2. Войдите в npm: `npm login`.
 3. Выполните: `npm publish` (из корня репозитория; сначала соберётся `dist`).
 
@@ -58,3 +76,7 @@ npm run build
   "access": "public"
 }
 ```
+
+## Репозиторий на GitHub
+
+Чтобы переименовать репозиторий: **Settings → General → Repository name** → `velair-ui`, либо в CLI: `gh repo rename velair-ui` из каталога клона. После переименования обновите локальный `git remote` при необходимости.
