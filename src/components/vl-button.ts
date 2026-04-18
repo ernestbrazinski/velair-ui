@@ -1,105 +1,111 @@
-import { LitElement, html, css, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, html, css, nothing } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
-export type VlButtonVariant = 'primary' | 'secondary';
-
-@customElement('vl-button')
+@customElement("vl-button")
 export class VlButton extends LitElement {
   static styles = css`
     :host {
-      display: inline-block;
-      --vl-base: var(--base-size, 16px);
-      --vl-border: var(--color-border, #d4d4d8);
-      --vl-surface: var(--color-surface, #fafafa);
-      --vl-text: var(--color-text, #111);
-      --vl-accent: var(--color-accent, #2563eb);
-      --vl-accent-text: var(--color-accent-text, #fff);
     }
     :host([hidden]) {
       display: none;
     }
-    .root {
-      box-sizing: border-box;
+    button,
+    a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: calc(var(--vl-base) * 0.5) calc(var(--vl-base) * 1);
-      border-radius: 4px;
-      border: 1px solid var(--vl-border);
-      background: var(--vl-surface);
-      color: var(--vl-text);
+      width: auto;
       font: inherit;
-      line-height: 1.2;
-      text-decoration: none;
+      font-size: var(--vl-button-font-size, 14px);
+      line-height: var(--vl-button-line-height, 1);
+      color: var(--vl-button-color, inherit);
+      border-style: solid;
+      border-width: 1px;
+      border-color: var(--vl-border-color);
+      border-radius: 0;
+      background-color: var(--vl-background-color);
+      padding: var(--vl-button-padding, 8px 16px);
       cursor: pointer;
+      appearance: none;
+      text-decoration: none;
+      text-align: center;
+      outline: none;
       transition:
-        background 0.12s ease,
-        color 0.12s ease,
-        border-color 0.12s ease;
+        var(--vl-transition-time, 0.3s) background-color,
+        var(--vl-transition-time, 0.3s) color,
+        var(--vl-transition-time, 0.3s) border-color;
     }
-    .root:focus-visible {
-      outline: 2px solid var(--color-accent, #2563eb);
-      outline-offset: 2px;
+
+    button:hover,
+    a:hover {
+      background-color: var(--vl-primary-color-hover);
     }
-    .root:disabled,
-    .root[aria-disabled='true'] {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .root--primary {
-      background: var(--vl-accent);
-      border-color: var(--vl-accent);
-      color: var(--vl-accent-text);
-    }
-    .root--secondary {
-      background: var(--vl-surface);
-      border-color: var(--vl-border);
-      color: var(--vl-text);
+    button:active,
+    a:active {
+      background-color: var(--vl-primary-color-active);
     }
   `;
 
-  @property({ type: String }) variant: VlButtonVariant = 'primary';
-
   @property({ type: Boolean, reflect: true }) disabled = false;
-
-  @property({ type: String }) type: 'button' | 'submit' | 'reset' = 'button';
-
-  /** When set, renders a link instead of a button (use instead of NuxtLink `to`). */
-  @property({ type: String }) href = '';
+  @property({ type: String }) type: "button" | "submit" | "reset" = "button";
+  @property({ type: String }) href: string = "";
 
   protected render() {
     const isLink = Boolean(this.href);
-    const mod = this.variant === 'secondary' ? 'secondary' : 'primary';
-    const cls = `root root--${mod}`;
 
     if (isLink) {
       return html`
         <a
-          class=${cls}
+          part="link"
           href=${this.href}
-          aria-disabled=${this.disabled ? 'true' : nothing}
+          aria-disabled=${this.disabled ? "true" : nothing}
           tabindex=${this.disabled ? -1 : nothing}
-          @click=${this._onLinkClick}
+          @click=${this._onClick}
         >
           <slot></slot>
         </a>
       `;
     }
 
+    const innerType =
+      this.type === "submit" || this.type === "reset" ? "button" : this.type;
     return html`
-      <button class=${cls} type=${this.type} ?disabled=${this.disabled}>
+      <button
+        part="button"
+        type=${innerType}
+        ?disabled=${this.disabled}
+        @click=${this._onClick}
+      >
         <slot></slot>
       </button>
     `;
   }
 
-  private _onLinkClick(e: MouseEvent) {
-    if (this.disabled) e.preventDefault();
+  /** Shadow inner button is not a form light-DOM descendant; handle submit/reset on the host. */
+  private _onClick(e: MouseEvent) {
+    if (this.disabled) {
+      e.preventDefault();
+      return;
+    }
+    if (this.href) {
+      if (this.disabled) e.preventDefault();
+      return;
+    }
+    const form = this.closest("form");
+    if (this.type === "reset" && form) {
+      e.preventDefault();
+      form.reset();
+      return;
+    }
+    if (this.type === "submit" && form) {
+      e.preventDefault();
+      form.requestSubmit();
+    }
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'vl-button': VlButton;
+    "vl-button": VlButton;
   }
 }

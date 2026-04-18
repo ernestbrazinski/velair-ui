@@ -1,0 +1,41 @@
+:root {
+  /* theme colors */
+  --vl-color-primary: #2563eb;
+  --vl-color-primary-hover: #1d4ed8;
+  --vl-color-primary-active: #1e40af;
+
+  --vl-color-error: #dc2626;
+  --vl-color-warning: #eab308;
+  --vl-color-success: #22c55e;
+
+  --vl-border-color: var(--vl-color-primary);
+  --vl-background-color: var(--vl-color-primary);
+
+  /* vl-notification */
+  --vl-color-notification-default-background: #eef5ff;
+  --vl-color-notification-default-border: #c7dcff;
+  --vl-color-notification-default-color: #2f6fd6;
+  --vl-color-notification-default-icon: #3b82f6;
+
+  --vl-color-notification-success-background: #eaf7f0;
+  --vl-color-notification-success-border: #bfe7cf;
+  --vl-color-notification-success-color: #1f8a5b;
+  --vl-color-notification-success-icon: #22c55e;
+
+  --vl-color-notification-warning-background: #fff4e5;
+  --vl-color-notification-warning-border: #ffd8a8;
+  --vl-color-notification-warning-color: #b76e00;
+  --vl-color-notification-warning-icon: #f59e0b;
+
+  --vl-color-notification-error-background: #fdecec;
+  --vl-color-notification-error-border: #f5c2c2;
+  --vl-color-notification-error-color: #c53030;
+  --vl-color-notification-error-icon: #ef4444;
+
+  /* sizes */
+  --vl-button-font-size: var(--vl-button-font-size, 14px);
+  --vl-border-radius-scale: 0;
+
+  /* transitions */
+  --vl-transition-time: 0.3s;
+}

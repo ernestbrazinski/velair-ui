@@ -1,12 +1,13 @@
 {
   "name": "velair-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Velair UI — Web components library built with Lit",
   "license": "MIT",
   "author": "",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "themes"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -15,7 +16,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./themes/default.css": "./themes/default.css"
   },
   "scripts": {
     "dev": "vite",

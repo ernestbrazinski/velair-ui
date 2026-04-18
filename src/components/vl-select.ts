@@ -1,5 +1,5 @@
-import { LitElement, html, css, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, html, css, nothing } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 export type VlSelectOption = {
   value: string;
@@ -17,7 +17,7 @@ function optionsFromAttr(value: string | null): VlSelectOption[] {
   }
 }
 
-@customElement('vl-select')
+@customElement("vl-select")
 export class VlSelect extends LitElement {
   static styles = css`
     :host {
@@ -39,11 +39,13 @@ export class VlSelect extends LitElement {
       box-sizing: border-box;
       padding: calc(var(--vl-base) * 0.35) calc(var(--vl-base) * 0.5);
       border: 1px solid var(--vl-border);
-      border-radius: 4px;
-      background: var(--vl-bg);
+      // border-radius: 4px;
+      // background: var(--vl-bg);
+      background: transparent;
+      border: none;
       color: var(--vl-text);
       font: inherit;
-      min-width: calc(var(--vl-base) * 10);
+      // min-width: calc(var(--vl-base) * 10);
       cursor: pointer;
     }
     :host([wide]) select {
@@ -62,17 +64,17 @@ export class VlSelect extends LitElement {
 
   @property({
     converter: { fromAttribute: optionsFromAttr },
-    attribute: 'options',
+    attribute: "options",
   })
   options: VlSelectOption[] = [];
 
-  @property({ type: String }) value = '';
+  @property({ type: String }) value = "";
 
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  @property({ type: String }) selectId = '';
+  @property({ type: String }) selectId = "";
 
-  @property({ type: String }) name = '';
+  @property({ type: String }) name = "";
 
   @property({ type: Boolean, reflect: true }) wide = false;
 
@@ -87,7 +89,9 @@ export class VlSelect extends LitElement {
       >
         ${this.options.map(
           (opt) => html`
-            <option value=${opt.value} ?disabled=${opt.disabled ?? false}>${opt.label}</option>
+            <option value=${opt.value} ?disabled=${opt.disabled ?? false}>
+              ${opt.label}
+            </option>
           `,
         )}
       </select>
@@ -98,13 +102,17 @@ export class VlSelect extends LitElement {
     const t = e.target as HTMLSelectElement;
     this.value = t.value;
     this.dispatchEvent(
-      new CustomEvent('vl-change', { bubbles: true, composed: true, detail: { value: this.value } }),
+      new CustomEvent("vl-change", {
+        bubbles: true,
+        composed: true,
+        detail: { value: this.value },
+      }),
     );
   }
 
   updated(changed: Map<PropertyKey, unknown>) {
-    if (changed.has('value')) {
-      const sel = this.renderRoot.querySelector('select');
+    if (changed.has("value")) {
+      const sel = this.renderRoot.querySelector("select");
       if (sel && sel.value !== this.value) sel.value = this.value;
     }
   }
@@ -112,6 +120,6 @@ export class VlSelect extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'vl-select': VlSelect;
+    "vl-select": VlSelect;
   }
 }

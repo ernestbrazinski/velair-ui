@@ -27,7 +27,7 @@
       <h2>vl-button</h2>
       <p style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center">
         <vl-button>Primary</vl-button>
-        <vl-button variant="secondary">Secondary</vl-button>
+        <vl-button>Ещё раз</vl-button>
         <vl-button disabled>Disabled</vl-button>
         <vl-button href="#">Как ссылка</vl-button>
       </p>
@@ -35,7 +35,41 @@
 
     <section>
       <h2>vl-input</h2>
-      <vl-input placeholder="Текст" wide></vl-input>
+      <vl-input placeholder="Обычный" wide style="margin-bottom: 0.75rem"></vl-input>
+      <vl-input
+        float
+        placeholder="Плавающий лейбл"
+        label-float="Сверху (фокус / заполнено)"
+        wide
+        style="margin-bottom: 0.75rem"
+      ></vl-input>
+      <vl-input float placeholder="С ошибкой" error="Поле обязательно" wide></vl-input>
+    </section>
+
+    <section>
+      <h2>vl-textarea</h2>
+      <vl-textarea
+        float
+        placeholder="Комментарий"
+        label-float="Комментарий"
+        rows="3"
+        wide
+        style="margin-bottom: 0.75rem"
+      ></vl-textarea>
+      <vl-textarea rows="2" wide placeholder="Без float"></vl-textarea>
+    </section>
+
+    <section>
+      <h2>vl-checkbox / vl-radio</h2>
+      <p style="display: flex; flex-direction: column; gap: 0.5rem">
+        <vl-checkbox name="a" value="1">Согласие</vl-checkbox>
+        <vl-checkbox indeterminate>Не определено</vl-checkbox>
+        <span style="display: block; margin-top: 0.5rem"
+          >Группа (одинаковый name):</span
+        >
+        <vl-radio name="g" value="a" checked>Пункт A</vl-radio>
+        <vl-radio name="g" value="b">Пункт B</vl-radio>
+      </p>
     </section>
 
     <section>
@@ -50,6 +84,28 @@
     <section>
       <h2>vl-toggle-switch</h2>
       <vl-toggle-switch id="sw"></vl-toggle-switch>
+    </section>
+
+    <section>
+      <h2>vl-notification</h2>
+      <p style="display: flex; flex-wrap: wrap; gap: 0.5rem">
+        <vl-button type="button" id="showNotifSuccess">Success</vl-button>
+        <vl-button type="button" id="showNotifWarning">Warning</vl-button>
+        <vl-button type="button" id="showNotifError">Error</vl-button>
+        <vl-button type="button" id="showNotifLong">Долгий (8 c)</vl-button>
+      </p>
+      <vl-notification id="notifSuccess" variant="success"
+        >Сохранено успешно.</vl-notification
+      >
+      <vl-notification id="notifWarning" variant="warning"
+        >Проверьте данные перед отправкой.</vl-notification
+      >
+      <vl-notification id="notifError" variant="error"
+        >Не удалось выполнить операцию.</vl-notification
+      >
+      <vl-notification id="notifLong" variant="success" delay="8000"
+        >Закроется через 8 секунд (delay).</vl-notification
+      >
     </section>
 
     <section>

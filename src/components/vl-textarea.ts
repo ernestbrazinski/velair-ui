@@ -20,13 +20,13 @@ const errorAttrConverter = {
   },
 };
 
-let _vlInputId = 0;
-function _nextVlInputId() {
-  return `vl-in-${++_vlInputId}`;
+let _id = 0;
+function _nextId() {
+  return `vl-ta-${++_id}`;
 }
 
-@customElement("vl-input")
-export class VlInput extends LitElement {
+@customElement("vl-textarea")
+export class VlTextarea extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
@@ -53,7 +53,7 @@ export class VlInput extends LitElement {
       position: relative;
       display: block;
     }
-    :host(:not([float])) .field {
+    :host :not([float]) .field {
       width: 100%;
     }
     :host .field--bordered {
@@ -62,8 +62,8 @@ export class VlInput extends LitElement {
     }
     :host .field--float {
       border: none;
-      border-radius: 0;
       border-bottom: 1px solid var(--vl-border);
+      border-radius: 0;
     }
     :host .field.field--float[data-invalid] {
       border-bottom-color: var(--vl-error, #dc2626) !important;
@@ -74,11 +74,11 @@ export class VlInput extends LitElement {
     :host .field--float:focus-within:not([data-invalid]) {
       border-bottom-color: var(--vl-accent);
     }
-    :host :not([float]) input:focus-visible {
+    :host :not([float]) textarea:focus-visible {
       outline: 2px solid var(--vl-accent);
       outline-offset: 2px;
     }
-    :host .field--float input:focus-visible {
+    :host .field--float textarea:focus-visible {
       outline: none;
     }
     :host
@@ -86,84 +86,80 @@ export class VlInput extends LitElement {
       .field--bordered:has(:focus-visible):not([data-invalid]) {
       box-shadow: 0 0 0 2px var(--vl-accent);
     }
-    :host input {
+    textarea {
       box-sizing: border-box;
       max-width: 100%;
-      width: var(--vl-input-width, auto);
+      width: var(--vl-textarea-width, auto);
       min-width: calc(var(--vl-base) * 12);
+      min-height: calc(var(--vl-base) * 6);
       padding: calc(var(--vl-base) * 0.5) calc(var(--vl-base) * 0.65);
       border: 1px solid var(--vl-border);
       border-radius: 4px;
-      // background: var(--vl-bg);
-      background: transparent;
+      background: var(--vl-bg);
       color: var(--vl-text);
       font: inherit;
+      line-height: 1.4;
+      resize: var(--vl-textarea-resize, vertical);
     }
-    :host .field--float input {
+    :host .field--float textarea {
       border: none;
-      box-shadow: none;
       width: 100%;
       min-width: 0;
       margin: 0;
       display: block;
-      padding: calc(var(--vl-base) * 1) 0 calc(var(--vl-base) * 0.4) 0;
-      min-height: calc(var(--vl-base) * 2.75);
-      line-height: 1.35;
+      padding: calc(var(--vl-base) * 0.4) 0
+        calc(var(--vl-base) * 0.3) 0;
+      min-height: calc(var(--vl-base) * 6);
     }
     :host .field--float {
       min-width: 0;
     }
-    :host :not([float]) .field--bordered input {
+    :host :not([float]) .field--bordered textarea {
       border: none;
     }
-    :host .field--bordered input {
+    :host .field--bordered textarea {
       width: 100%;
       min-width: 0;
     }
     :host .field--float .float-label {
       position: absolute;
       left: 0;
-      top: calc(var(--vl-base) * 0.9);
+      top: calc(var(--vl-base) * 0.55);
       right: 0.5rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      pointer-events: none;
       color: var(--vl-muted);
       font-size: calc(var(--vl-base) * 1.05);
-      font-weight: 400;
-      line-height: 1.35;
-      pointer-events: none;
+      line-height: 1.3;
       transform-origin: left top;
       transition:
         transform 0.2s ease,
         top 0.2s ease,
-        font-size 0.2s ease,
-        color 0.2s ease;
+        font-size 0.2s ease;
     }
-    :host .field--float:has(:focus-within) .float-label,
+    :host
+      .field--float:has(:focus-within)
+      .float-label,
     :host .field--float[data-filled] .float-label {
       top: 0;
       font-size: calc(var(--vl-base) * 0.8);
       font-weight: 500;
-      color: var(--vl-muted);
       transform: scale(0.9);
     }
-    :host([wide]) :not([float]) input {
+    :host([wide]) :not([float]) textarea {
       width: 100%;
-      min-width: 0;
     }
-    :host input::placeholder {
+    textarea::placeholder {
       color: var(--vl-muted);
       opacity: 1;
     }
-    :host([float]) input::placeholder {
+    :host([float]) textarea::placeholder {
       color: transparent;
     }
-    input:disabled {
+    textarea:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-    input:read-only:not(:disabled) {
+    textarea:read-only:not(:disabled) {
       cursor: default;
     }
     .err {
@@ -175,33 +171,24 @@ export class VlInput extends LitElement {
   `;
 
   @property({ type: String }) value = "";
-  @property({ type: String }) type:
-    | "text"
-    | "password"
-    | "email"
-    | "search"
-    | "tel"
-    | "url"
-    | "number" = "text";
-  @property({ type: Boolean, reflect: true }) disabled = false;
-  @property({ type: Boolean, reflect: true }) readonly = false;
+  @property({ type: Number }) rows = 4;
   @property({ type: String }) name = "";
   @property({ type: String }) placeholder = "";
   @property({ type: String, attribute: "label-float" }) labelFloat = "";
-  @property({ type: String }) autocomplete = "";
   @property({ type: Number }) maxlength: number | undefined;
   @property({ type: Number }) minlength: number | undefined;
+  @property({ type: String }) autocomplete = "";
+  @property({ type: Boolean, attribute: "spellcheck" })
+  spellCheck?: boolean;
+  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) readonly = false;
   @property({ type: Boolean, reflect: true }) wide = false;
   @property({ type: Boolean, reflect: true }) float = false;
   @property({ type: String, attribute: "input-id" }) inputId = "";
-  @property({
-    converter: errorAttrConverter,
-    reflect: true,
-    attribute: "error",
-  })
+  @property({ converter: errorAttrConverter, reflect: true, attribute: "error" })
   error: string | boolean = false;
 
-  @state() private _autoId: string = _nextVlInputId();
+  @state() private _autoId = _nextId();
   @state() private _focused = false;
 
   private get _eid() {
@@ -209,15 +196,17 @@ export class VlInput extends LitElement {
   }
 
   private get _isError() {
-    return (
-      this.error === true ||
-      (typeof this.error === "string" && this.error.length > 0)
-    );
+    return this.error === true
+      || (typeof this.error === "string" && this.error.length > 0);
   }
 
   private get _errorText() {
     if (this.error === true) return "";
-    if (typeof this.error === "string" && this.error && this.error !== "true") {
+    if (
+      typeof this.error === "string"
+      && this.error
+      && this.error !== "true"
+    ) {
       return this.error;
     }
     return "";
@@ -258,43 +247,57 @@ export class VlInput extends LitElement {
           ?data-filled=${this._hasValue}
           ?data-invalid=${this._isError}
         >
-          <input
-            part="input"
+          <textarea
+            part="textarea"
             id=${id}
             name=${ifDefined(this.name || undefined)}
-            type=${this.type}
+            rows=${this.rows}
             .value=${live(this.value)}
             ?disabled=${this.disabled}
             ?readonly=${this.readonly}
             placeholder=${ifDefined(
-              showFloat ? " " : this.placeholder ? this.placeholder : undefined,
+              showFloat
+                ? " "
+                : (this.placeholder
+                  ? this.placeholder
+                  : undefined),
             )}
-            autocomplete=${ifDefined(this.autocomplete || undefined)}
-            maxlength=${ifDefined(this.maxlength as number | null | undefined)}
-            minlength=${ifDefined(this.minlength as number | null | undefined)}
+            maxlength=${ifDefined(
+              this.maxlength as number | null | undefined,
+            )}
+            minlength=${ifDefined(
+              this.minlength as number | null | undefined,
+            )}
+            .spellCheck=${ifDefined(
+              this.spellCheck,
+            )}
             aria-invalid=${ifDefined(
-              this._isError ? ("true" as const) : undefined,
+              this._isError
+                ? ("true" as const)
+                : undefined,
             )}
             aria-errormessage=${ifDefined(
-              this._errorText && msgId ? msgId : undefined,
+              this._errorText && msgId
+                ? msgId
+                : undefined,
             )}
             aria-describedby=${ifDefined(
-              this._messageId ? this._messageId : undefined,
+              this._messageId
+                ? this._messageId
+                : undefined,
             )}
             @input=${this._onInput}
             @change=${this._onChange}
-            @focus=${() => {
-              this._focused = true;
-            }}
-            @blur=${() => {
-              this._focused = false;
-            }}
-          />
+            @focus=${() => { this._focused = true; }}
+            @blur=${() => { this._focused = false; }}
+          ></textarea>
           ${showFloat
             ? html`
-                <label part="label" class="float-label" for=${id}
-                  >${this._floatLabelContent}</label
-                >
+                <label
+                  part="label"
+                  class="float-label"
+                  for=${id}
+                >${this._floatLabelContent}</label>
               `
             : nothing}
         </div>
@@ -305,9 +308,7 @@ export class VlInput extends LitElement {
                 class="err"
                 id=${ifDefined(msgId ?? undefined)}
                 role="alert"
-              >
-                ${this._errorText}
-              </p>
+              >${this._errorText}</p>
             `
           : nothing}
       </div>
@@ -315,7 +316,7 @@ export class VlInput extends LitElement {
   }
 
   private _onInput(e: Event) {
-    const t = e.target as HTMLInputElement;
+    const t = e.target as HTMLTextAreaElement;
     this.value = t.value;
     this.dispatchEvent(
       new CustomEvent("vl-input", {
@@ -327,7 +328,7 @@ export class VlInput extends LitElement {
   }
 
   private _onChange(e: Event) {
-    const t = e.target as HTMLInputElement;
+    const t = e.target as HTMLTextAreaElement;
     this.value = t.value;
     this.dispatchEvent(
       new CustomEvent("vl-change", {
@@ -340,16 +341,14 @@ export class VlInput extends LitElement {
 
   protected updated(changed: Map<PropertyKey, unknown>) {
     if (changed.has("value")) {
-      const input = this.renderRoot?.querySelector("input");
-      if (input && input.value !== this.value) {
-        input.value = this.value;
-      }
+      const t = this.renderRoot?.querySelector("textarea");
+      if (t && t.value !== this.value) t.value = this.value;
     }
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "vl-input": VlInput;
+    "vl-textarea": VlTextarea;
   }
 }
