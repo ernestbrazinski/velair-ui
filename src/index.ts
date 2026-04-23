@@ -9,6 +9,8 @@ export type { VlSelectOption } from './components/vl-select.js';
 
 export { VlToggleSwitch } from './components/vl-toggle-switch.js';
 
+export { VlToggleMultipleSwitch } from './components/vl-toggle-multiple-switch.js';
+
 export { VlModal } from './components/vl-modal.js';
 
 export { VlNotification } from './components/vl-notification.js';

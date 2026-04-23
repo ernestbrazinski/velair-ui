@@ -1,7 +1,7 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { LitElement, html, css } from "lit";
+import { customElement, property, query } from "lit/decorators.js";
 
-@customElement('vl-modal')
+@customElement("vl-modal")
 export class VlModal extends LitElement {
   static styles = css`
     :host {
@@ -17,7 +17,10 @@ export class VlModal extends LitElement {
       padding: 0;
       border: none;
       margin: auto;
-      max-width: min(calc(var(--vl-base) * 56), calc(100vw - var(--vl-base) * 2));
+      max-width: min(
+        calc(var(--vl-base) * 56),
+        calc(100vw - var(--vl-base) * 2)
+      );
       width: 100%;
       background: transparent;
       color: inherit;
@@ -57,7 +60,7 @@ export class VlModal extends LitElement {
       border: none;
       border-radius: 4px;
       background: transparent;
-      color: var(--vl-muted);
+      color: var(--vl-color-placeholder);
       font: inherit;
       font-size: calc(var(--vl-base) * 1.75);
       line-height: 1;
@@ -89,7 +92,7 @@ export class VlModal extends LitElement {
     }
   `;
 
-  @query('dialog', true) private _dialog!: HTMLDialogElement;
+  @query("dialog", true) private _dialog!: HTMLDialogElement;
 
   @property({ type: Boolean, reflect: true }) open = false;
 
@@ -102,7 +105,7 @@ export class VlModal extends LitElement {
   }
 
   updated(changed: Map<string, unknown>) {
-    if (changed.has('open')) {
+    if (changed.has("open")) {
       queueMicrotask(() => this._syncOpen());
     }
   }
@@ -114,7 +117,9 @@ export class VlModal extends LitElement {
 
   private _onDialogClose = () => {
     this.open = false;
-    this.dispatchEvent(new CustomEvent('vl-close', { bubbles: true, composed: true }));
+    this.dispatchEvent(
+      new CustomEvent("vl-close", { bubbles: true, composed: true }),
+    );
   };
 
   private _syncOpen() {
@@ -142,7 +147,14 @@ export class VlModal extends LitElement {
         <div class="panel">
           ${this.showClose
             ? html`
-                <button type="button" class="close" aria-label="Close" @click=${this._onCloseClick}>×</button>
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  @click=${this._onCloseClick}
+                >
+                  ×
+                </button>
               `
             : null}
           <div class="title"><slot name="title"></slot></div>
@@ -156,6 +168,6 @@ export class VlModal extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'vl-modal': VlModal;
+    "vl-modal": VlModal;
   }
 }

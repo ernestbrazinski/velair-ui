@@ -1,0 +1,319 @@
+:root {
+  /* theme colors */
+  --vl-color-primary: #0a84ff;
+  --vl-color-primary-hover: #0071e3;
+  --vl-color-primary-active: #0060c8;
+
+  --vl-color-error: #ff3b30;
+  --vl-color-warning: #ff9500;
+  --vl-color-success: #34c759;
+
+  --vl-color-text: #1d1d1f;
+  --vl-color-placeholder: rgba(60, 60, 67, 0.6);
+  --vl-color-disabled: rgba(60, 60, 67, 0.3);
+
+  /* glass tokens */
+  --vl-glass-tint: #b7b7b9;
+  --vl-glass-light: #ffffff;
+  --vl-glass-dark: #000000;
+  --vl-glass-blur: 16px;
+  --vl-glass-saturation: 180%;
+
+  --vl-glass-surface: color-mix(in srgb, var(--vl-glass-tint) 14%, transparent);
+  --vl-glass-elevated: color-mix(in srgb, var(--vl-glass-tint) 36%, transparent);
+  --vl-glass-panel: color-mix(in srgb, var(--vl-glass-light) 55%, transparent);
+
+  --vl-glass-backdrop: blur(var(--vl-glass-blur))
+    saturate(var(--vl-glass-saturation));
+
+  /* heavy liquid-glass shadow — for larger surfaces */
+  --vl-glass-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--vl-glass-light) 10%, transparent),
+    inset 1.8px 3px 0 -2px
+      color-mix(in srgb, var(--vl-glass-light) 90%, transparent),
+    inset -2px -2px 0 -2px
+      color-mix(in srgb, var(--vl-glass-light) 80%, transparent),
+    inset -3px -8px 1px -6px
+      color-mix(in srgb, var(--vl-glass-light) 60%, transparent),
+    inset -0.3px -1px 4px 0
+      color-mix(in srgb, var(--vl-glass-dark) 12%, transparent),
+    inset -1.5px 2.5px 0 -2px
+      color-mix(in srgb, var(--vl-glass-dark) 20%, transparent),
+    inset 0 3px 4px -2px color-mix(in srgb, var(--vl-glass-dark) 20%, transparent),
+    inset 2px -6.5px 1px -4px
+      color-mix(in srgb, var(--vl-glass-dark) 10%, transparent),
+    0 1px 5px 0 color-mix(in srgb, var(--vl-glass-dark) 10%, transparent),
+    0 6px 16px 0 color-mix(in srgb, var(--vl-glass-dark) 8%, transparent);
+
+  /* compact glass shadow — for small controls */
+  --vl-glass-shadow-sm:
+    inset 0 0 0 1px color-mix(in srgb, var(--vl-glass-light) 20%, transparent),
+    inset 1px 1.5px 0 -0.5px
+      color-mix(in srgb, var(--vl-glass-light) 85%, transparent),
+    inset -1px -1px 0 -0.5px
+      color-mix(in srgb, var(--vl-glass-light) 60%, transparent),
+    inset 0 1px 2px -0.5px
+      color-mix(in srgb, var(--vl-glass-dark) 20%, transparent),
+    0 1px 3px 0 color-mix(in srgb, var(--vl-glass-dark) 10%, transparent);
+}
+
+/* ------------------------------------------------------------------
+ * vl-select
+ * ------------------------------------------------------------------ */
+vl-select::part(trigger) {
+  min-height: 40px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--vl-glass-surface);
+  color: var(--vl-color-text);
+  font-size: 15px;
+  line-height: 20px;
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+vl-select::part(trigger):hover {
+  background: color-mix(in srgb, var(--vl-glass-tint) 20%, transparent);
+}
+vl-select::part(trigger):focus-visible {
+  outline: 2px solid var(--vl-color-primary);
+  outline-offset: 3px;
+}
+vl-select::part(trigger):disabled {
+  opacity: 0.5;
+}
+vl-select::part(arrow) {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+vl-select::part(arrow--open) {
+  transform: rotate(180deg);
+}
+vl-select::part(panel) {
+  margin-top: 6px;
+  padding: 6px;
+  border: none;
+  border-radius: 16px;
+  background: var(--vl-glass-panel);
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow);
+  z-index: 50;
+}
+vl-select::part(option) {
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 20px;
+  transition: background 0.12s ease;
+}
+vl-select::part(option--selected) {
+  background: color-mix(in srgb, var(--vl-glass-tint) 22%, transparent);
+}
+vl-select::part(option--active) {
+  background: color-mix(in srgb, var(--vl-color-primary) 85%, transparent);
+  color: #ffffff;
+}
+vl-select::part(option)[aria-disabled="true"] {
+  opacity: 0.4;
+}
+
+/* ------------------------------------------------------------------
+ * vl-input, vl-textarea
+ * ------------------------------------------------------------------ */
+vl-input::part(input),
+vl-textarea::part(textarea) {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--vl-glass-surface);
+  color: var(--vl-color-text);
+  font-size: 15px;
+  line-height: 20px;
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+vl-input::part(input)::placeholder,
+vl-textarea::part(textarea)::placeholder {
+  color: var(--vl-color-placeholder);
+  opacity: 1;
+}
+vl-input::part(input):focus-visible,
+vl-textarea::part(textarea):focus-visible {
+  outline: 2px solid var(--vl-color-primary);
+  outline-offset: 2px;
+}
+vl-input::part(input):disabled,
+vl-textarea::part(textarea):disabled {
+  opacity: 0.5;
+}
+vl-input[data-invalid]::part(input),
+vl-textarea[data-invalid]::part(textarea) {
+  outline: 2px solid var(--vl-color-error);
+  outline-offset: 0;
+}
+vl-input::part(label),
+vl-textarea::part(label) {
+  color: var(--vl-color-placeholder);
+  font-size: 14px;
+  background: transparent;
+  padding: 0 4px;
+}
+vl-input::part(error),
+vl-textarea::part(error) {
+  margin: 6px 4px 0;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--vl-color-error);
+}
+
+/* ------------------------------------------------------------------
+ * vl-checkbox, vl-radio
+ * ------------------------------------------------------------------ */
+vl-checkbox::part(control),
+vl-radio::part(control) {
+  width: 20px;
+  height: 20px;
+}
+vl-checkbox::part(box),
+vl-radio::part(box) {
+  border: none;
+  border-radius: 6px;
+  background: var(--vl-glass-surface);
+  color: #ffffff;
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow-sm);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+vl-radio::part(box) {
+  border-radius: 50%;
+}
+vl-checkbox[checked]::part(box),
+vl-checkbox[indeterminate]::part(box),
+vl-radio[checked]::part(box) {
+  background: color-mix(in srgb, var(--vl-color-primary) 90%, transparent);
+}
+vl-checkbox:focus-within::part(box),
+vl-radio:focus-within::part(box) {
+  outline: 2px solid var(--vl-color-primary);
+  outline-offset: 3px;
+}
+vl-checkbox[data-invalid]::part(box),
+vl-radio[data-invalid]::part(box) {
+  outline: 2px solid var(--vl-color-error);
+}
+vl-checkbox[disabled]::part(field),
+vl-radio[disabled]::part(field) {
+  opacity: 0.5;
+}
+vl-checkbox::part(label),
+vl-radio::part(label) {
+  color: var(--vl-color-text);
+  font-size: 15px;
+  line-height: 1.4;
+}
+vl-checkbox::part(error),
+vl-radio::part(error) {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--vl-color-error);
+}
+
+/* ------------------------------------------------------------------
+ * vl-toggle-switch
+ * ------------------------------------------------------------------ */
+vl-toggle-switch::part(root) {
+  width: 52px;
+  height: 32px;
+}
+vl-toggle-switch::part(track) {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--vl-glass-surface);
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow);
+  transition: background-color 0.3s ease;
+}
+vl-toggle-switch[checked]::part(track) {
+  background: color-mix(in srgb, var(--vl-color-primary) 85%, transparent);
+}
+vl-toggle-switch::part(knob) {
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background: color-mix(in srgb, var(--vl-glass-light) 85%, transparent);
+  box-shadow: var(--vl-glass-shadow-sm);
+  transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+vl-toggle-switch[checked]::part(knob) {
+  transform: translateX(20px);
+}
+vl-toggle-switch:focus-within::part(track) {
+  outline: 2px solid var(--vl-color-primary);
+  outline-offset: 3px;
+}
+vl-toggle-switch[disabled] {
+  opacity: 0.5;
+}
+
+/* ------------------------------------------------------------------
+ * vl-toggle-multiple-switch
+ * ------------------------------------------------------------------ */
+vl-toggle-multiple-switch {
+  --vl-tms-pad: 6px;
+  --vl-tms-gap: 6px;
+}
+vl-toggle-multiple-switch::part(root) {
+  min-height: 56px;
+  border-radius: 999px;
+  background: var(--vl-glass-surface);
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow);
+  transition:
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+vl-toggle-multiple-switch::part(thumb) {
+  background: var(--vl-glass-elevated);
+  backdrop-filter: var(--vl-glass-backdrop);
+  -webkit-backdrop-filter: var(--vl-glass-backdrop);
+  box-shadow: var(--vl-glass-shadow-sm);
+  transition:
+    left 0.4s cubic-bezier(1, 0, 0.4, 1),
+    width 0.4s cubic-bezier(1, 0, 0.4, 1);
+}
+vl-toggle-multiple-switch:focus-within::part(root) {
+  outline: 2px solid var(--vl-color-primary);
+  outline-offset: 3px;
+}
+vl-toggle-multiple-switch > * {
+  color: var(--vl-color-text);
+  font-size: 15px;
+  transition:
+    color 0.18s ease,
+    transform 0.2s cubic-bezier(0.5, 0, 0, 1);
+}
+vl-toggle-multiple-switch > :hover:not([aria-checked="true"]) {
+  color: var(--vl-color-primary);
+  transform: scale(1.05);
+}
+vl-toggle-multiple-switch > [aria-checked="true"] {
+  color: var(--vl-color-text);
+  cursor: default;
+}

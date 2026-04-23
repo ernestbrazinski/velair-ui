@@ -1,32 +1,28 @@
 import { LitElement, html, css, nothing } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 
 export type VlSelectOption = {
   value: string;
   label: string;
   disabled?: boolean;
+  iconUrl?: string;
 };
 
-function optionsFromAttr(value: string | null): VlSelectOption[] {
+const parseOptions = (value: string | null): VlSelectOption[] => {
   if (!value?.trim()) return [];
   try {
-    const parsed = JSON.parse(value) as unknown;
-    return Array.isArray(parsed) ? (parsed as VlSelectOption[]) : [];
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }
-}
+};
 
 @customElement("vl-select")
 export class VlSelect extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
-      --vl-base: var(--base-size, 16px);
-      --vl-border: var(--color-border, #d4d4d8);
-      --vl-bg: var(--color-bg, #fff);
-      --vl-text: var(--color-text, #111);
-      --vl-accent: var(--color-accent, #2563eb);
     }
     :host([hidden]) {
       display: none;
@@ -35,72 +31,125 @@ export class VlSelect extends LitElement {
       display: block;
       width: 100%;
     }
-    select {
-      box-sizing: border-box;
-      padding: calc(var(--vl-base) * 0.35) calc(var(--vl-base) * 0.5);
-      border: 1px solid var(--vl-border);
-      // border-radius: 4px;
-      // background: var(--vl-bg);
-      background: transparent;
-      border: none;
-      color: var(--vl-text);
+    [part~="root"] {
+      position: relative;
+    }
+    [part~="trigger"] {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid;
+      background: Field;
+      color: FieldText;
       font: inherit;
-      // min-width: calc(var(--vl-base) * 10);
+      text-align: left;
       cursor: pointer;
     }
-    :host([wide]) select {
-      width: 100%;
-      min-width: 0;
-    }
-    select:disabled {
-      opacity: 0.5;
+    [part~="trigger"]:disabled {
       cursor: not-allowed;
     }
-    select:focus-visible {
-      outline: 2px solid var(--vl-accent);
-      outline-offset: 2px;
+    [part~="label"] {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    [part~="arrow"] {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+    [part~="panel"] {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border: 1px solid;
+      background: Field;
+      max-height: 240px;
+      overflow: auto;
+    }
+    [part~="panel"][hidden] {
+      display: none;
+    }
+    [part~="option"] {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    [part~="option"][aria-disabled="true"] {
+      cursor: not-allowed;
+    }
+    [part~="icon"] {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
     }
   `;
 
-  @property({
-    converter: { fromAttribute: optionsFromAttr },
-    attribute: "options",
-  })
+  @property({ converter: { fromAttribute: parseOptions } })
   options: VlSelectOption[] = [];
 
   @property({ type: String }) value = "";
-
-  @property({ type: Boolean, reflect: true }) disabled = false;
-
-  @property({ type: String }) selectId = "";
-
   @property({ type: String }) name = "";
-
+  @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: Boolean, reflect: true }) wide = false;
 
-  protected render() {
-    return html`
-      <select
-        id=${this.selectId || nothing}
-        name=${this.name || nothing}
-        .value=${this.value}
-        ?disabled=${this.disabled}
-        @change=${this._onChange}
-      >
-        ${this.options.map(
-          (opt) => html`
-            <option value=${opt.value} ?disabled=${opt.disabled ?? false}>
-              ${opt.label}
-            </option>
-          `,
-        )}
-      </select>
-    `;
+  @state() private open = false;
+  @state() private activeIndex = 0;
+
+  private outsideController?: AbortController;
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.outsideController?.abort();
   }
 
-  private _onChange(e: Event) {
-    const t = e.target as HTMLSelectElement;
-    this.value = t.value;
+  protected firstUpdated(): void {
+    if (this.options.length && this.value === "") {
+      this.value = this.options[0]!.value;
+    }
+  }
+
+  private get current(): VlSelectOption | undefined {
+    return this.options.find((o) => o.value === this.value) ?? this.options[0];
+  }
+
+  private setOpen(open: boolean): void {
+    this.open = open;
+    this.outsideController?.abort();
+    if (!open) return;
+
+    const selected = this.options.findIndex((o) => o.value === this.value);
+    this.activeIndex = selected < 0 ? 0 : selected;
+
+    this.outsideController = new AbortController();
+    document.addEventListener("pointerdown", this.onOutsidePointer, {
+      capture: true,
+      signal: this.outsideController.signal,
+    });
+  }
+
+  private onOutsidePointer = (e: PointerEvent): void => {
+    if (!e.composedPath().includes(this)) this.setOpen(false);
+  };
+
+  private toggle = (): void => {
+    if (!this.disabled) this.setOpen(!this.open);
+  };
+
+  private select(option: VlSelectOption): void {
+    if (option.disabled) return;
+    this.value = option.value;
+    this.setOpen(false);
     this.dispatchEvent(
       new CustomEvent("vl-change", {
         bubbles: true,
@@ -110,11 +159,115 @@ export class VlSelect extends LitElement {
     );
   }
 
-  updated(changed: Map<PropertyKey, unknown>) {
-    if (changed.has("value")) {
-      const sel = this.renderRoot.querySelector("select");
-      if (sel && sel.value !== this.value) sel.value = this.value;
+  private moveActive(step: number): void {
+    const count = this.options.length;
+    let next = this.activeIndex;
+    for (let i = 0; i < count; i++) {
+      next = (next + step + count) % count;
+      if (!this.options[next]?.disabled) {
+        this.activeIndex = next;
+        return;
+      }
     }
+  }
+
+  private onKeydown = (e: KeyboardEvent): void => {
+    if (this.disabled) return;
+
+    if (!this.open) {
+      if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        this.setOpen(true);
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case "Escape":
+        e.preventDefault();
+        this.setOpen(false);
+        return;
+      case "ArrowDown":
+        e.preventDefault();
+        this.moveActive(1);
+        return;
+      case "ArrowUp":
+        e.preventDefault();
+        this.moveActive(-1);
+        return;
+      case "Enter":
+      case " ": {
+        e.preventDefault();
+        const option = this.options[this.activeIndex];
+        if (option) this.select(option);
+        return;
+      }
+    }
+  };
+
+  private renderOption(option: VlSelectOption, index: number) {
+    const parts = ["option"];
+    if (option.value === this.value) parts.push("option--selected");
+    if (this.open && index === this.activeIndex) parts.push("option--active");
+
+    return html`
+      <li
+        part=${parts.join(" ")}
+        role="option"
+        aria-selected=${option.value === this.value ? "true" : "false"}
+        aria-disabled=${option.disabled ? "true" : "false"}
+        @click=${() => this.select(option)}
+      >
+        ${option.iconUrl
+          ? html`<img part="icon" src=${option.iconUrl} alt="" />`
+          : nothing}
+        <span part="label">${option.label}</span>
+      </li>
+    `;
+  }
+
+  protected render() {
+    const current = this.current;
+    const triggerParts = this.open ? "trigger trigger--open" : "trigger";
+    const arrowParts = this.open ? "arrow arrow--open" : "arrow";
+
+    return html`
+      <div part="root" @keydown=${this.onKeydown}>
+        ${this.name
+          ? html`<input
+              type="hidden"
+              name=${this.name}
+              .value=${this.value}
+              ?disabled=${this.disabled}
+            />`
+          : nothing}
+        <button
+          part=${triggerParts}
+          type="button"
+          ?disabled=${this.disabled}
+          aria-haspopup="listbox"
+          aria-expanded=${this.open ? "true" : "false"}
+          @click=${this.toggle}
+        >
+          ${current?.iconUrl
+            ? html`<img part="icon" src=${current.iconUrl} alt="" />`
+            : nothing}
+          <span part="label">${current?.label ?? ""}</span>
+          <svg part=${arrowParts} viewBox="0 0 12 12" aria-hidden="true">
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              d="M2.5 4.25L6 7.75l3.5-3.5"
+            />
+          </svg>
+        </button>
+        <ul part="panel" role="listbox" ?hidden=${!this.open}>
+          ${this.options.map((option, i) => this.renderOption(option, i))}
+        </ul>
+      </div>
+    `;
   }
 }
 

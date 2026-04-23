@@ -17,7 +17,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./themes/default.css": "./themes/default.css"
+    "./themes/default.css": "./themes/default.css",
+    "./themes/glass.css": "./themes/glass.css"
   },
   "scripts": {
     "dev": "vite",

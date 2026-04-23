@@ -21,10 +21,10 @@ export class VlButton extends LitElement {
       color: var(--vl-button-color, inherit);
       border-style: solid;
       border-width: 1px;
-      border-color: var(--vl-border-color);
-      border-radius: 0;
-      background-color: var(--vl-background-color);
-      padding: var(--vl-button-padding, 8px 16px);
+      border-color: var(--vl-border-color-primary);
+      border-radius: 10px;
+      background-color: var(--vl-background-color-primary);
+      padding: var(--vl-button-padding, 12px 20px);
       cursor: pointer;
       appearance: none;
       text-decoration: none;
@@ -38,11 +38,13 @@ export class VlButton extends LitElement {
 
     button:hover,
     a:hover {
-      background-color: var(--vl-primary-color-hover);
+      background-color: var(--vl-color-primary-hover);
+      border-color: var(--vl-color-primary-hover);
     }
     button:active,
     a:active {
-      background-color: var(--vl-primary-color-active);
+      background-color: var(--vl-color-primary-active);
+      border-color: var(--vl-color-primary-active);
     }
   `;
 

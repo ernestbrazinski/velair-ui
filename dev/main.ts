@@ -1,17 +1,17 @@
-import '../themes/default.css';
-import '../src/index.js';
-import { VlModal } from '../src/components/vl-modal.js';
-import { VlNotification } from '../src/components/vl-notification.js';
+import "../themes/default.css";
+import "../src/index.js";
+import { VlModal } from "../src/components/vl-modal.js";
+import { VlNotification } from "../src/components/vl-notification.js";
 
-const modal = document.getElementById('demoModal');
-const openBtn = document.getElementById('openModal');
-const closeBtn = document.getElementById('closeModal');
+const modal = document.getElementById("demoModal");
+const openBtn = document.getElementById("openModal");
+const closeBtn = document.getElementById("closeModal");
 
 if (modal instanceof VlModal && openBtn && closeBtn) {
-  openBtn.addEventListener('click', () => {
+  openBtn.addEventListener("click", () => {
     modal.open = true;
   });
-  closeBtn.addEventListener('click', () => {
+  closeBtn.addEventListener("click", () => {
     modal.close();
   });
 }
@@ -23,15 +23,15 @@ function showNotif(id: string) {
   }
 }
 
-document.getElementById('showNotifSuccess')?.addEventListener('click', () => {
-  showNotif('notifSuccess');
+document.getElementById("showNotifSuccess")?.addEventListener("click", () => {
+  showNotif("notifSuccess");
 });
-document.getElementById('showNotifWarning')?.addEventListener('click', () => {
-  showNotif('notifWarning');
+document.getElementById("showNotifWarning")?.addEventListener("click", () => {
+  showNotif("notifWarning");
 });
-document.getElementById('showNotifError')?.addEventListener('click', () => {
-  showNotif('notifError');
+document.getElementById("showNotifError")?.addEventListener("click", () => {
+  showNotif("notifError");
 });
-document.getElementById('showNotifLong')?.addEventListener('click', () => {
-  showNotif('notifLong');
+document.getElementById("showNotifLong")?.addEventListener("click", () => {
+  showNotif("notifLong");
 });
