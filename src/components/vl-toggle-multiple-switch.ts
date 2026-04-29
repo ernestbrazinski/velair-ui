@@ -6,8 +6,6 @@ export class VlToggleMultipleSwitch extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
-      --vl-tms-pad: 4px;
-      --vl-tms-gap: 8px;
     }
     :host([hidden]) {
       display: none;
@@ -19,15 +17,15 @@ export class VlToggleMultipleSwitch extends LitElement {
     [part~="root"] {
       position: relative;
       display: flex;
-      gap: var(--vl-tms-gap);
-      padding: var(--vl-tms-pad);
+      gap: var(--vl-tms-gap, 8px);
+      padding: var(--vl-tms-pad, 4px);
       border-radius: 999px;
       background: ButtonFace;
     }
     [part~="thumb"] {
       position: absolute;
-      top: var(--vl-tms-pad);
-      height: calc(100% - 2 * var(--vl-tms-pad));
+      top: var(--vl-tms-pad, 4px);
+      height: calc(100% - 2 * var(--vl-tms-pad, 4px));
       border-radius: 999px;
       background: Field;
       transition: left 0.3s ease, width 0.3s ease;
@@ -37,7 +35,7 @@ export class VlToggleMultipleSwitch extends LitElement {
       position: relative;
       display: flex;
       flex: 1;
-      gap: var(--vl-tms-gap);
+      gap: var(--vl-tms-gap, 8px);
       min-width: 0;
     }
     ::slotted(*) {
@@ -176,8 +174,8 @@ export class VlToggleMultipleSwitch extends LitElement {
   private thumbStyle() {
     if (!this.count) return { left: "0", width: "0", opacity: "0" };
     const n = this.count;
-    const seg = `calc((100% - 2 * var(--vl-tms-pad) - ${n - 1} * var(--vl-tms-gap)) / ${n})`;
-    const left = `calc(var(--vl-tms-pad) + ${this.activeIndex} * (${seg} + var(--vl-tms-gap)))`;
+    const seg = `calc((100% - 2 * var(--vl-tms-pad, 4px) - ${n - 1} * var(--vl-tms-gap, 8px)) / ${n})`;
+    const left = `calc(var(--vl-tms-pad, 4px) + ${this.activeIndex} * (${seg} + var(--vl-tms-gap, 8px)))`;
     return { left, width: seg, opacity: "1" };
   }
 

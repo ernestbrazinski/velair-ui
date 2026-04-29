@@ -1,0 +1,1833 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "\"button\" | \"submit\" | \"reset\""
+              },
+              "default": "\"button\"",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "href"
+            },
+            {
+              "kind": "method",
+              "name": "_onClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "MouseEvent"
+                  }
+                }
+              ],
+              "description": "Shadow inner button is not a form light-DOM descendant; handle submit/reset on the host."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "\"button\" | \"submit\" | \"reset\""
+              },
+              "default": "\"button\"",
+              "fieldName": "type"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "href"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-button",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlButton",
+          "declaration": {
+            "name": "VlButton",
+            "module": "src/components/vl-button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-button",
+          "declaration": {
+            "name": "VlButton",
+            "module": "src/components/vl-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-checkbox.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlCheckbox",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"on\"",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "error"
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "indeterminate",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "indeterminate",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "inputEl",
+              "type": {
+                "text": "HTMLInputElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncForm",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"on\"",
+              "fieldName": "value"
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "error"
+            },
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "checked"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "indeterminate",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "indeterminate"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-checkbox",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlCheckbox",
+          "declaration": {
+            "name": "VlCheckbox",
+            "module": "src/components/vl-checkbox.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-checkbox",
+          "declaration": {
+            "name": "VlCheckbox",
+            "module": "src/components/vl-checkbox.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-input.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlInput",
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "InputType"
+              },
+              "default": "\"text\"",
+              "attribute": "type"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "autocomplete"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "error"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "maxlength"
+            },
+            {
+              "kind": "field",
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "minlength"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "wide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "wide",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "float",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "float",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focused",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "hasValue",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "floating",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "onInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onChange",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "InputType"
+              },
+              "default": "\"text\"",
+              "fieldName": "type"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "autocomplete"
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "error"
+            },
+            {
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "maxlength"
+            },
+            {
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "minlength"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "wide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "wide"
+            },
+            {
+              "name": "float",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "float"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-input",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlInput",
+          "declaration": {
+            "name": "VlInput",
+            "module": "src/components/vl-input.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-input",
+          "declaration": {
+            "name": "VlInput",
+            "module": "src/components/vl-input.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-modal.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlModal",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_dialog",
+              "type": {
+                "text": "HTMLDialogElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "closeOnBackdrop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "closeOnBackdrop"
+            },
+            {
+              "kind": "field",
+              "name": "showClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "attribute": "showClose"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Programmatically closes the dialog (same as the × control)."
+            },
+            {
+              "kind": "field",
+              "name": "_onDialogClose",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_syncOpen",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onDialogClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "MouseEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onCloseClick",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "closeOnBackdrop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "closeOnBackdrop"
+            },
+            {
+              "name": "showClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "fieldName": "showClose"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-modal",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlModal",
+          "declaration": {
+            "name": "VlModal",
+            "module": "src/components/vl-modal.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-modal",
+          "declaration": {
+            "name": "VlModal",
+            "module": "src/components/vl-modal.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-notification.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlNotification",
+          "members": [
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "VlNotificationVariant"
+              },
+              "default": "\"success\"",
+              "attribute": "variant",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "delay",
+              "type": {
+                "text": "number"
+              },
+              "default": "3000",
+              "attribute": "delay"
+            },
+            {
+              "kind": "field",
+              "name": "_timer",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_clearTimer",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_armAutoClose",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_dismiss",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onCloseClick",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "vl-close",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "open"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "VlNotificationVariant"
+              },
+              "default": "\"success\"",
+              "fieldName": "variant"
+            },
+            {
+              "name": "delay",
+              "type": {
+                "text": "number"
+              },
+              "default": "3000",
+              "fieldName": "delay"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-notification",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlNotification",
+          "declaration": {
+            "name": "VlNotification",
+            "module": "src/components/vl-notification.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-notification",
+          "declaration": {
+            "name": "VlNotification",
+            "module": "src/components/vl-notification.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-radio.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlRadio",
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "error"
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "inputEl",
+              "type": {
+                "text": "HTMLInputElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "syncForm",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "error"
+            },
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "checked"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-radio",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlRadio",
+          "declaration": {
+            "name": "VlRadio",
+            "module": "src/components/vl-radio.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-radio",
+          "declaration": {
+            "name": "VlRadio",
+            "module": "src/components/vl-radio.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-select.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlSelect",
+          "members": [
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "VlSelectOption[]"
+              },
+              "default": "[]",
+              "attribute": "options"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "wide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "wide",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "activeIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "outsideController",
+              "type": {
+                "text": "AbortController | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "current",
+              "type": {
+                "text": "VlSelectOption | undefined"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "setOpen",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "open",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "onOutsidePointer",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "toggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "select",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": {
+                    "text": "VlSelectOption"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "moveActive",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "step",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "onKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "renderOption",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": {
+                    "text": "VlSelectOption"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "vl-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "options",
+              "type": {
+                "text": "VlSelectOption[]"
+              },
+              "default": "[]",
+              "fieldName": "options"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "wide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "wide"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-select",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlSelect",
+          "declaration": {
+            "name": "VlSelect",
+            "module": "src/components/vl-select.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-select",
+          "declaration": {
+            "name": "VlSelect",
+            "module": "src/components/vl-select.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-textarea.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlTextarea",
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "attribute": "rows"
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "name"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "autocomplete"
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "error"
+            },
+            {
+              "kind": "field",
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "maxlength"
+            },
+            {
+              "kind": "field",
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "attribute": "minlength"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "readonly",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "wide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "wide",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "float",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "float",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focused",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "hasValue",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "floating",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "onInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "onChange",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            },
+            {
+              "name": "rows",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "fieldName": "rows"
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "name"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "label"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "autocomplete",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "autocomplete"
+            },
+            {
+              "name": "error",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "error"
+            },
+            {
+              "name": "maxlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "maxlength"
+            },
+            {
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "fieldName": "minlength"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "readonly",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "readonly"
+            },
+            {
+              "name": "wide",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "wide"
+            },
+            {
+              "name": "float",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "float"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-textarea",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlTextarea",
+          "declaration": {
+            "name": "VlTextarea",
+            "module": "src/components/vl-textarea.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-textarea",
+          "declaration": {
+            "name": "VlTextarea",
+            "module": "src/components/vl-textarea.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-toggle-multiple-switch.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlToggleMultipleSwitch",
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "count",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "activeIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "optionsController",
+              "type": {
+                "text": "AbortController | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "optionValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "el",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "readOptions",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "indexOfValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "opts",
+                  "type": {
+                    "text": "HTMLElement[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "syncOptions",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "applyValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "select",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "idx",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "onKeydown",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "thumbStyle",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "vl-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-toggle-multiple-switch",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlToggleMultipleSwitch",
+          "declaration": {
+            "name": "VlToggleMultipleSwitch",
+            "module": "src/components/vl-toggle-multiple-switch.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-toggle-multiple-switch",
+          "declaration": {
+            "name": "VlToggleMultipleSwitch",
+            "module": "src/components/vl-toggle-multiple-switch.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/components/vl-toggle-switch.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "VlToggleSwitch",
+          "members": [
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "onChange",
+              "privacy": "private"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "checked",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "checked"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "disabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "vl-toggle-switch",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VlToggleSwitch",
+          "declaration": {
+            "name": "VlToggleSwitch",
+            "module": "src/components/vl-toggle-switch.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "vl-toggle-switch",
+          "declaration": {
+            "name": "VlToggleSwitch",
+            "module": "src/components/vl-toggle-switch.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

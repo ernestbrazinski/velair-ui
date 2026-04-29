@@ -1,0 +1,25 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Intro" />
+
+# Velair UI
+
+A small library of Lit-based web components.
+
+## Themes
+
+Use the **Theme** toolbar (top of the canvas) to switch between:
+
+- **Default** — clean, neutral baseline.
+- **Glass** — iOS liquid-glass aesthetic with translucent surfaces and layered highlights.
+
+The **Scheme** toolbar toggles light / dark canvas background — useful for checking how the
+glass theme reacts to a richer backdrop.
+
+## Architecture
+
+- Components in `src/components/` carry only structural styles (geometry).
+- All visual styling (colors, shadows, blur, hover/focus) lives in `themes/*.css`
+  and is applied via `::part()`.
+- See `src/docs/ADR/` for the full rationale (`Code minimalism`, `Component vs theme styles`,
+  `::part() as the styling API boundary`).

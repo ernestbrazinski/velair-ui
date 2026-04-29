@@ -1,0 +1,159 @@
+/* Storybook canvas / docs background — driven by [data-scheme] on <html>.
+   Themes (default/glass) for components are injected separately from preview.ts. */
+
+:root[data-scheme="light"] {
+  background:
+    radial-gradient(at 20% 10%, #c1d3ff 0%, transparent 55%),
+    radial-gradient(at 80% 80%, #ffd6e0 0%, transparent 55%),
+    #f5f5f7;
+  background-attachment: fixed;
+  color: #1d1d1f;
+  color-scheme: light;
+}
+
+:root[data-scheme="dark"] {
+  background:
+    radial-gradient(at 20% 10%, #2a3a8a 0%, transparent 55%),
+    radial-gradient(at 80% 80%, #6b1e3a 0%, transparent 55%),
+    #1c1c1e;
+  background-attachment: fixed;
+  color: #f2f2f7;
+  color-scheme: dark;
+}
+
+/* ===== Storybook chrome — flatten its surfaces against our gradient ===== */
+
+/* Top-level containers Storybook uses on docs and canvas pages. */
+:root[data-scheme] body,
+:root[data-scheme] .sb-show-main,
+:root[data-scheme] .sb-main-padded,
+:root[data-scheme] .sb-main-fullscreen,
+:root[data-scheme] .sb-wrapper,
+:root[data-scheme] .sb-preparing-docs,
+:root[data-scheme] .sb-preparing-story,
+:root[data-scheme] .sbdocs,
+:root[data-scheme] .sbdocs-wrapper,
+:root[data-scheme] .sbdocs-content {
+  background: transparent !important;
+  color: inherit;
+}
+
+/* ===== Dark scheme — props table & docs UI ===== */
+
+/* Props table: every cell, row, head/body, table itself. */
+:root[data-scheme="dark"] .docblock-argstable,
+:root[data-scheme="dark"] .docblock-argstable thead,
+:root[data-scheme="dark"] .docblock-argstable tbody,
+:root[data-scheme="dark"] .docblock-argstable tr,
+:root[data-scheme="dark"] .docblock-argstable td,
+:root[data-scheme="dark"] .docblock-argstable th,
+:root[data-scheme="dark"] .docblock-argstable-head,
+:root[data-scheme="dark"] .docblock-argstable-body {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #f2f2f7 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Section divider rows ("ATTRIBUTES", "PROPERTIES"). */
+:root[data-scheme="dark"] .docblock-argstable-head th,
+:root[data-scheme="dark"] .docblock-argstable-head td {
+  background: rgba(255, 255, 255, 0.04) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Inline controls inside the table (text inputs, toggles, set-object buttons). */
+:root[data-scheme="dark"] .docblock-argstable label,
+:root[data-scheme="dark"] .docblock-argstable input,
+:root[data-scheme="dark"] .docblock-argstable textarea,
+:root[data-scheme="dark"] .docblock-argstable span {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #f2f2f7 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Buttons (False/True toggles, Set boolean, Set object) — give them a faint
+   surface so they read as interactive. */
+:root[data-scheme="dark"] .docblock-argstable-body button {
+  background: rgba(255, 255, 255, 0.06) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #f2f2f7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Section divider rows (ATTRIBUTES / PROPERTIES) carry a `title` attribute
+   and contain invisible full-row click-target buttons. Keep those buttons
+   transparent — the visible label is a separate span next to the chevron. */
+:root[data-scheme="dark"] .docblock-argstable tr[title] button {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  color: transparent !important;
+}
+
+/* Type badges (string, boolean, "on", false, etc.) and code spans. */
+:root[data-scheme="dark"] .docblock-argstable code,
+:root[data-scheme="dark"] .docblock-code-toggle {
+  background: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #d6d6e7 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Story preview block (the card with zoom toolbar + component preview). */
+:root[data-scheme="dark"] .sbdocs-preview {
+  background: rgba(255, 255, 255, 0.03) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* The header strip with the zoom buttons sits as the first child of preview.
+   It's an emotion-classed div with a hard white bg — flatten it. */
+:root[data-scheme="dark"] .sbdocs-preview > div:first-child {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #f2f2f7 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+:root[data-scheme="dark"] .sbdocs-preview > div:first-child svg {
+  color: #f2f2f7 !important;
+}
+
+/* Action bar under the preview ("Show code", "Copy code"). */
+:root[data-scheme="dark"] .sbdocs-preview-actions,
+:root[data-scheme="dark"] .sbdocs-preview-actions * {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #c8c8d3 !important;
+}
+
+/* Story wrapper — keep transparent so component themes show through. */
+:root[data-scheme="dark"] .sb-story {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Headings and prose text. */
+:root[data-scheme="dark"] .sbdocs-content h1,
+:root[data-scheme="dark"] .sbdocs-content h2,
+:root[data-scheme="dark"] .sbdocs-content h3,
+:root[data-scheme="dark"] .sbdocs-content h4,
+:root[data-scheme="dark"] .sbdocs-content p,
+:root[data-scheme="dark"] .sbdocs-content li,
+:root[data-scheme="dark"] .sbdocs-content a,
+:root[data-scheme="dark"] .sbdocs-title {
+  color: #f2f2f7 !important;
+}
+
+/* Right-side TOC. */
+:root[data-scheme="dark"] .sbdocs-toc--custom a {
+  color: #c8c8d3 !important;
+}
+:root[data-scheme="dark"] .sbdocs-toc--custom a[aria-current="true"] {
+  color: #0a84ff !important;
+}
+
+.sb-show-main {
+  padding: 32px !important;
+}

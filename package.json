@@ -24,14 +24,23 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "analyze": "cem analyze --litelement --globs \"src/components/*.ts\" --outdir .",
+    "storybook": "npm run analyze && storybook dev -p 6006",
+    "build-storybook": "npm run analyze && storybook build"
   },
   "peerDependencies": {
     "lit": "^3.0.0"
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@storybook/addon-docs": "^10.3.6",
+    "@storybook/addon-themes": "^10.3.6",
+    "@storybook/web-components": "^10.3.6",
+    "@storybook/web-components-vite": "^10.3.6",
     "@types/node": "^22.14.0",
     "lit": "^3.2.1",
+    "storybook": "^10.3.6",
     "typescript": "~5.8.3",
     "vite": "^6.2.6",
     "vite-plugin-dts": "^4.5.3"
@@ -41,5 +50,6 @@
     "lit",
     "ui",
     "components"
-  ]
+  ],
+  "customElements": "custom-elements.json"
 }
