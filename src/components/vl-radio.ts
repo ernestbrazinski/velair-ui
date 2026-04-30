@@ -10,6 +10,7 @@ export class VlRadio extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
+      outline: none !important;
     }
     :host([hidden]) {
       display: none;

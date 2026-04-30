@@ -5,6 +5,7 @@ import { customElement, property } from "lit/decorators.js";
 export class VlButton extends LitElement {
   static styles = css`
     :host {
+      outline: none !important;
     }
     :host([hidden]) {
       display: none;

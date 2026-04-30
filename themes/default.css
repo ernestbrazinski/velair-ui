@@ -4,6 +4,8 @@
   --vl-color-primary-hover: #1d4ed8;
   --vl-color-primary-active: #1e40af;
 
+  --vl-text-color: #18181b;
+
   --vl-border-color: #d4d4d8;
   --vl-border-color-hover: #a1a1aa;
   --vl-border-color-active: #71717a;
@@ -46,6 +48,16 @@
   --vl-transition-time: 0.3s;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vl-text-color: #fafafa;
+  }
+}
+
+html {
+  color: var(--vl-text-color);
+}
+
 /* vl-select */
 vl-select::part(trigger) {
   min-height: 36px;
@@ -53,7 +65,7 @@ vl-select::part(trigger) {
   border-radius: 8px;
   border-color: var(--vl-border-color);
   background: #ffffff;
-  color: #18181b;
+  color: inherit;
   font-size: 14px;
   line-height: 20px;
   transition: border-color 0.15s ease;
@@ -107,7 +119,7 @@ vl-textarea::part(textarea) {
   padding: 8px 10px;
   border-radius: 8px;
   border-color: var(--vl-border-color);
-  color: #18181b;
+  color: inherit;
   font-size: 14px;
   line-height: 20px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -230,5 +242,5 @@ vl-toggle-multiple-switch > :hover {
   color: var(--vl-color-primary);
 }
 vl-toggle-multiple-switch > [aria-checked="true"] {
-  color: #18181b;
+  color: inherit;
 }

@@ -8,6 +8,7 @@ export class VlTextarea extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
+      outline: none !important;
     }
     :host([hidden]) {
       display: none;
@@ -30,7 +31,7 @@ export class VlTextarea extends LitElement {
       padding: 6px 10px;
       border: 1px solid;
       background: Field;
-      color: FieldText;
+      color: inherit;
       font: inherit;
       resize: vertical;
     }

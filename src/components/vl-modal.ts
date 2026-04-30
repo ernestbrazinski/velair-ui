@@ -6,6 +6,7 @@ export class VlModal extends LitElement {
   static styles = css`
     :host {
       display: contents;
+      outline: none !important;
       --vl-base: var(--base-size, 16px);
       --vl-border: var(--color-border, #d4d4d8);
       --vl-surface: var(--color-surface, #fafafa);
@@ -41,7 +42,7 @@ export class VlModal extends LitElement {
       border: 1px solid var(--vl-border);
       border-radius: 8px;
       background: var(--vl-surface);
-      color: var(--vl-text);
+      color: inherit;
       box-shadow:
         0 calc(var(--vl-base) * 0.25) calc(var(--vl-base) * 1.5)
           color-mix(in srgb, var(--vl-text) 12%, transparent),
@@ -67,7 +68,7 @@ export class VlModal extends LitElement {
       cursor: pointer;
     }
     .close:hover {
-      color: var(--vl-text);
+      color: inherit;
       background: color-mix(in srgb, var(--vl-border) 40%, transparent);
     }
     .close:focus-visible {

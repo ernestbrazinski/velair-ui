@@ -8,6 +8,7 @@ export class VlNotification extends LitElement {
   static styles = css`
     :host {
       display: none;
+      outline: none !important;
     }
     :host([open]) {
       display: block;

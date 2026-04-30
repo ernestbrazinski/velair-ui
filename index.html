@@ -1,122 +1,286 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>velair-ui dev</title>
+    <title>velairUI</title>
     <style>
+      :root {
+        color-scheme: light dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
-        font-family: system-ui, sans-serif;
-        padding: 1.5rem;
-        max-width: 40rem;
+        margin: 0;
+        height: 100%;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: #05060a;
+        color: #f5f6fa;
+        overflow: hidden;
       }
-      section {
-        margin-bottom: 1.5rem;
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        isolation: isolate;
       }
-      h2 {
-        font-size: 0.875rem;
-        margin: 0 0 0.5rem;
-        color: #52525b;
+
+      .bg {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        overflow: hidden;
+      }
+      .blob {
+        position: absolute;
+        width: 60vmax;
+        height: 60vmax;
+        border-radius: 50%;
+        filter: blur(90px);
+        opacity: 0.7;
+        mix-blend-mode: screen;
+        will-change: transform;
+      }
+      .blob.a {
+        background: radial-gradient(circle, #7c3aed 0%, transparent 60%);
+        top: -20vmax;
+        left: -10vmax;
+        animation: drift-a 22s ease-in-out infinite alternate;
+      }
+      .blob.b {
+        background: radial-gradient(circle, #06b6d4 0%, transparent 60%);
+        top: 20vmax;
+        right: -20vmax;
+        animation: drift-b 26s ease-in-out infinite alternate;
+      }
+      .blob.c {
+        background: radial-gradient(circle, #ec4899 0%, transparent 60%);
+        bottom: -25vmax;
+        left: 10vmax;
+        animation: drift-c 30s ease-in-out infinite alternate;
+      }
+      .blob.d {
+        background: radial-gradient(circle, #f59e0b 0%, transparent 60%);
+        top: 30vmax;
+        left: 30vmax;
+        animation: drift-d 34s ease-in-out infinite alternate;
+        opacity: 0.45;
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: radial-gradient(circle at center, #000 30%, transparent 75%);
+        -webkit-mask-image: radial-gradient(
+          circle at center,
+          #000 30%,
+          transparent 75%
+        );
+      }
+
+      .content {
+        position: relative;
+        text-align: center;
+        padding: 0 24px;
+        max-width: 760px;
+        animation: fade-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 16px;
+        margin-bottom: 28px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(18px) saturate(160%);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(245, 246, 250, 0.8);
+      }
+      .logo .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 12px #34d399;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(64px, 14vw, 180px);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.95;
+        background: linear-gradient(
+          110deg,
+          #ffffff 0%,
+          #c4b5fd 25%,
+          #67e8f9 50%,
+          #f9a8d4 75%,
+          #ffffff 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: shimmer 6s linear infinite;
+      }
+      h1 span {
+        font-weight: 300;
+        font-style: italic;
+      }
+
+      p.lede {
+        margin: 28px auto 0;
+        max-width: 560px;
+        font-size: clamp(15px, 1.4vw, 18px);
+        line-height: 1.6;
+        color: rgba(245, 246, 250, 0.72);
+      }
+
+      .meta {
+        margin-top: 36px;
+        display: inline-flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .meta span {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: rgba(245, 246, 250, 0.75);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      @keyframes drift-a {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(15vmax, 10vmax) scale(1.15);
+        }
+      }
+      @keyframes drift-b {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(-12vmax, 8vmax) scale(1.1);
+        }
+      }
+      @keyframes drift-c {
+        0% {
+          transform: translate(0, 0) scale(1.05);
+        }
+        100% {
+          transform: translate(10vmax, -12vmax) scale(0.9);
+        }
+      }
+      @keyframes drift-d {
+        0% {
+          transform: translate(0, 0) scale(0.9);
+        }
+        100% {
+          transform: translate(-18vmax, -10vmax) scale(1.2);
+        }
+      }
+      @keyframes shimmer {
+        from {
+          background-position: 0% center;
+        }
+        to {
+          background-position: 200% center;
+        }
+      }
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.3);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .blob,
+        h1,
+        .logo .dot {
+          animation: none;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>velair-ui</h1>
+    <main class="stage">
+      <div class="bg">
+        <div class="blob a"></div>
+        <div class="blob b"></div>
+        <div class="blob c"></div>
+        <div class="blob d"></div>
+      </div>
+      <div class="grid"></div>
 
-    <section>
-      <h2>vl-button</h2>
-      <p style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center">
-        <vl-button>Primary</vl-button>
-        <vl-button>Ещё раз</vl-button>
-        <vl-button disabled>Disabled</vl-button>
-        <vl-button href="#">Как ссылка</vl-button>
-      </p>
-    </section>
-
-    <section>
-      <h2>vl-input</h2>
-      <vl-input placeholder="Обычный" wide style="margin-bottom: 0.75rem"></vl-input>
-      <vl-input
-        float
-        placeholder="Плавающий лейбл"
-        label-float="Сверху (фокус / заполнено)"
-        wide
-        style="margin-bottom: 0.75rem"
-      ></vl-input>
-      <vl-input float placeholder="С ошибкой" error="Поле обязательно" wide></vl-input>
-    </section>
-
-    <section>
-      <h2>vl-textarea</h2>
-      <vl-textarea
-        float
-        placeholder="Комментарий"
-        label-float="Комментарий"
-        rows="3"
-        wide
-        style="margin-bottom: 0.75rem"
-      ></vl-textarea>
-      <vl-textarea rows="2" wide placeholder="Без float"></vl-textarea>
-    </section>
-
-    <section>
-      <h2>vl-checkbox / vl-radio</h2>
-      <p style="display: flex; flex-direction: column; gap: 0.5rem">
-        <vl-checkbox name="a" value="1">Согласие</vl-checkbox>
-        <vl-checkbox indeterminate>Не определено</vl-checkbox>
-        <span style="display: block; margin-top: 0.5rem"
-          >Группа (одинаковый name):</span
-        >
-        <vl-radio name="g" value="a" checked>Пункт A</vl-radio>
-        <vl-radio name="g" value="b">Пункт B</vl-radio>
-      </p>
-    </section>
-
-    <section>
-      <h2>vl-select</h2>
-      <vl-select
-        wide
-        options='[{"value":"a","label":"Вариант A"},{"value":"b","label":"Вариант B"}]'
-        value="a"
-      ></vl-select>
-    </section>
-
-    <section>
-      <h2>vl-toggle-switch</h2>
-      <vl-toggle-switch id="sw"></vl-toggle-switch>
-    </section>
-
-    <section>
-      <h2>vl-notification</h2>
-      <p style="display: flex; flex-wrap: wrap; gap: 0.5rem">
-        <vl-button type="button" id="showNotifSuccess">Success</vl-button>
-        <vl-button type="button" id="showNotifWarning">Warning</vl-button>
-        <vl-button type="button" id="showNotifError">Error</vl-button>
-        <vl-button type="button" id="showNotifLong">Долгий (8 c)</vl-button>
-      </p>
-      <vl-notification id="notifSuccess" variant="success"
-        >Сохранено успешно.</vl-notification
-      >
-      <vl-notification id="notifWarning" variant="warning"
-        >Проверьте данные перед отправкой.</vl-notification
-      >
-      <vl-notification id="notifError" variant="error"
-        >Не удалось выполнить операцию.</vl-notification
-      >
-      <vl-notification id="notifLong" variant="success" delay="8000"
-        >Закроется через 8 секунд (delay).</vl-notification
-      >
-    </section>
-
-    <section>
-      <h2>vl-modal</h2>
-      <vl-button type="button" id="openModal">Открыть модалку</vl-button>
-      <vl-modal id="demoModal">
-        <span slot="title">Заголовок</span>
-        <p>Содержимое диалога.</p>
-        <span slot="footer"><vl-button type="button" id="closeModal">Закрыть</vl-button></span>
-      </vl-modal>
-    </section>
+      <div class="content">
+        <div class="logo">
+          <span class="dot"></span>
+          <span>web components library</span>
+        </div>
+        <h1>velair<span>UI</span></h1>
+        <p class="lede">
+          A lightweight, themeable web components library built on Lit. Ship
+          accessible, framework-agnostic UI primitives — buttons, inputs,
+          modals, switches and more — with first-class theming via CSS
+          custom properties.
+        </p>
+        <div class="meta">
+          <span>Lit 3</span>
+          <span>Web Components</span>
+          <span>Themeable</span>
+          <span>Zero framework lock-in</span>
+        </div>
+      </div>
+    </main>
 
     <script type="module" src="/dev/main.ts"></script>
   </body>

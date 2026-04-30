@@ -8,7 +8,7 @@
   --vl-color-warning: #ff9500;
   --vl-color-success: #34c759;
 
-  --vl-color-text: #1d1d1f;
+  --vl-text-color: #1d1d1f;
   --vl-color-placeholder: rgba(60, 60, 67, 0.6);
   --vl-color-disabled: rgba(60, 60, 67, 0.3);
 
@@ -57,6 +57,16 @@
     0 1px 3px 0 color-mix(in srgb, var(--vl-glass-dark) 10%, transparent);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vl-text-color: #f5f5f7;
+  }
+}
+
+html {
+  color: var(--vl-text-color);
+}
+
 /* ------------------------------------------------------------------
  * vl-select
  * ------------------------------------------------------------------ */
@@ -66,7 +76,7 @@ vl-select::part(trigger) {
   border: none;
   border-radius: 12px;
   background: var(--vl-glass-surface);
-  color: var(--vl-color-text);
+  color: inherit;
   font-size: 15px;
   line-height: 20px;
   backdrop-filter: var(--vl-glass-backdrop);
@@ -132,7 +142,7 @@ vl-textarea::part(textarea) {
   border: none;
   border-radius: 12px;
   background: var(--vl-glass-surface);
-  color: var(--vl-color-text);
+  color: inherit;
   font-size: 15px;
   line-height: 20px;
   backdrop-filter: var(--vl-glass-backdrop);
@@ -220,7 +230,7 @@ vl-radio[disabled]::part(field) {
 }
 vl-checkbox::part(label),
 vl-radio::part(label) {
-  color: var(--vl-color-text);
+  color: inherit;
   font-size: 15px;
   line-height: 1.4;
 }
@@ -303,7 +313,7 @@ vl-toggle-multiple-switch:focus-within::part(root) {
   outline-offset: 3px;
 }
 vl-toggle-multiple-switch > * {
-  color: var(--vl-color-text);
+  color: inherit;
   font-size: 15px;
   transition:
     color 0.18s ease,
@@ -314,6 +324,6 @@ vl-toggle-multiple-switch > :hover:not([aria-checked="true"]) {
   transform: scale(1.05);
 }
 vl-toggle-multiple-switch > [aria-checked="true"] {
-  color: var(--vl-color-text);
+  color: inherit;
   cursor: default;
 }
